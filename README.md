@@ -10,20 +10,16 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Lessons
 
-### Run your tests
-```
-npm run test
-```
+1. ### Creating a self-contained animated component
+2. ### Theory: Tween & interpolation
+3. ### Composing animation from animated elements
+4. ### Enter/Exit
+5. ### Animate on visible
+6. ### Animated line
+7. ### Theory: SVG path
+8. ### Using computed: Animating object along a path
+9. ### Animating viewport
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

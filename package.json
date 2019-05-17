@@ -9,7 +9,12 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "d3": "^5.9.2",
+    "gsap": "^2.1.2",
+    "lodash": "^4.17.11",
+    "lodash-es": "^4.17.11",
+    "vue": "^2.6.10",
+    "vue-observe-visibility": "^0.4.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

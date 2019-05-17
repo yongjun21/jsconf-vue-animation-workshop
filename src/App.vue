@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <bar-chart v-bind="$data"></bar-chart>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BarChart from './components/BarChart.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    BarChart
+  },
+  data () {
+    return {
+      data: [10, 20, 50, 40],
+      width: 800,
+      height: 500
+    }
   }
 }
 </script>
@@ -24,5 +30,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-bottom: 1200px;
 }
 </style>

@@ -11,16 +11,16 @@
 </template>
 
 <script>
-import { scaleBand, scaleLinear } from 'd3'
+import {scaleBand, scaleLinear} from 'd3'
 import _range from 'lodash-es/range'
 import TimelineLite from 'gsap/TimelineLite'
-import { ObserveVisibility } from 'vue-observe-visibility'
+import {ObserveVisibility} from 'vue-observe-visibility'
 
 import AnimatedRect from './AnimatedRect'
 
 export default {
-  components: { AnimatedRect },
-  directives: { ObserveVisibility },
+  components: {AnimatedRect},
+  directives: {ObserveVisibility},
   props: {
     data: Array,
     width: {
@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     viewBox () {
-      const { width, height } = this
+      const {width, height} = this
       const padding = 0.1 * width
       return [
         -padding,
@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     getGeom (v, i) {
-      const { xScale, yScale } = this
+      const {xScale, yScale} = this
       const y0 = yScale(0)
       const y1 = yScale(v)
       return {

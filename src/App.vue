@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <bar-chart v-bind="$data"></bar-chart>
+    <!-- <bar-chart v-bind="$data"></bar-chart> -->
+    <angry-bird></angry-bird>
   </div>
 </template>
 
 <script>
 import BarChart from './components/BarChart.vue'
+import AngryBird from './components/AngryBird.vue'
 
 export default {
   name: 'app',
   components: {
-    BarChart
+    BarChart,
+    AngryBird
   },
   data () {
     return {
@@ -29,7 +32,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  margin-bottom: 1200px;
+  // margin-top: 120vh;
+  // margin-bottom: 120vh;
 }
 </style>

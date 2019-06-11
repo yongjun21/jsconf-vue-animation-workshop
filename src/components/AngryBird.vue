@@ -1,12 +1,10 @@
 <template>
   <div class="angry-bird">
     <svg :viewBox="viewBox" preserveAspectRatio="xMidYMid meet">
-      <g :transform="transform">
-        <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
-        <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
-        <animated-path v-bind="pathGeom" @animate="updatePosition" ref="path"></animated-path>
-        <circle :cx="position.x" :cy="position.y" r="20"></circle>
-      </g>
+      <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
+      <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
+      <path v-bind="pathGeom" ref="path" v-show="!showGuide"></path>
+      <circle :cx="position.x" :cy="position.y" r="20" v-if="false"></circle>
     </svg>
 
     <label>Velocity <input type="range" v-model="velocity" min="60" max="120" step="5"> {{velocity}}m/s</label>
@@ -19,12 +17,11 @@
 import {path} from 'd3-path'
 
 import Gridlines from './Gridlines'
-import AnimatedPath from './AnimatedPath'
 
 const g = 9.8
 
 export default {
-  components: {AnimatedPath, Gridlines},
+  components: {Gridlines},
   props: {
     data: Array,
     width: {
@@ -38,10 +35,6 @@ export default {
   },
   data () {
     return {
-      position: {
-        x: 0,
-        y: this.height
-      },
       angle: 60,
       velocity: 80,
       showGuide: true
@@ -49,23 +42,14 @@ export default {
   },
   computed: {
     viewBox () {
-      const {width, height, position} = this
+      const {width, height} = this
       const padding = 0.05 * width
       return [
-        position.x - width / 2 - padding,
-        position.y - height / 2 - padding,
-        // -padding,
-        // -padding,
+        -padding,
+        -padding,
         width + 2 * padding,
         height + 2 * padding
       ].join(' ')
-    },
-    transform () {
-      return null
-      // const {width, height, position} = this
-      // const dx = width / 2 - position.x
-      // const dy = height / 2 - position.y
-      // return `translate(${dx} ${dy})`
     },
     a () {
       return this.angle * Math.PI / 180
@@ -107,10 +91,6 @@ export default {
   methods: {
     launch () {
       this.showGuide = false
-      this.$refs.path.animate()
-    },
-    updatePosition (pos) {
-      this.position = pos
     }
   },
   watch: {

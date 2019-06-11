@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <bar-chart v-bind="$data"></bar-chart> -->
-    <angry-bird></angry-bird>
+    <bar-chart v-bind="$data"></bar-chart>
+    <!-- <angry-bird></angry-bird> -->
   </div>
 </template>
 

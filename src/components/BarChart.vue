@@ -1,26 +1,18 @@
 <template>
-  <svg class="bar-chart" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" v-observe-visibility="onAppear">
-    <transition-group tag="g" @enter="onEnter">
-      <animated-rect v-for="(v, i) in data" :key="i"
-        ref="bars"
-        class="bar"
-        v-bind="getGeom(v, i)">
-      </animated-rect>
-    </transition-group>
+  <svg class="bar-chart" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet">
+    <rect v-for="(v, i) in data" :key="i"
+      ref="bars"
+      class="bar"
+      v-bind="getGeom(v, i)">
+    </rect>
   </svg>
 </template>
 
 <script>
 import {scaleBand, scaleLinear} from 'd3'
 import _range from 'lodash-es/range'
-import TimelineLite from 'gsap/TimelineLite'
-import {ObserveVisibility} from 'vue-observe-visibility'
-
-import AnimatedRect from './AnimatedRect'
 
 export default {
-  components: {AnimatedRect},
-  directives: {ObserveVisibility},
   props: {
     data: Array,
     width: {
@@ -65,12 +57,6 @@ export default {
       return scaleLinear()
         .domain(domain)
         .rangeRound(range)
-    },
-    enterGeom () {
-      return {
-        y: this.yScale(0),
-        height: 0
-      }
     }
   },
   methods: {
@@ -84,33 +70,7 @@ export default {
         width: xScale.bandwidth(),
         height: Math.abs(y1 - y0)
       }
-    },
-    animate () {
-      this.$nextTick(() => {
-        const tweens = this.$refs.bars.map(bar => bar.animate())
-        // https://greensock.com/docs/TimelineLite
-        return new TimelineLite({
-          tweens,
-          stagger: 0.5
-        })
-      })
-    },
-    onEnter (el, done) {
-      el.vm.setAnimated(this.enterGeom)
-      done()
-    },
-    onAppear (isVisible) {
-      if (!this.visible && isVisible) {
-        this.$refs.bars.forEach(bar => {
-          bar.setAnimated(this.enterGeom)
-        })
-        this.animate()
-      }
-      this.visible = isVisible
     }
-  },
-  watch: {
-    data: 'animate'
   }
 }
 </script>

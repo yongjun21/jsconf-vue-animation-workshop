@@ -1,10 +1,12 @@
 <template>
   <div class="angry-bird">
     <svg :viewBox="viewBox" preserveAspectRatio="xMidYMid meet">
-      <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
-      <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
-      <animated-path v-bind="pathGeom" @animate="updatePosition" ref="path"></animated-path>
-      <circle :cx="position.x" :cy="position.y" r="20"></circle>
+      <g :transform="transform">
+        <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
+        <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
+        <animated-path v-bind="pathGeom" @animate="updatePosition" ref="path"></animated-path>
+        <circle :cx="position.x" :cy="position.y" r="20"></circle>
+      </g>
     </svg>
 
     <label>Velocity <input type="range" v-model="velocity" min="60" max="120" step="5"> {{velocity}}m/s</label>
@@ -52,15 +54,18 @@ export default {
       return [
         position.x - width / 2 - padding,
         position.y - height / 2 - padding,
+        // -padding,
+        // -padding,
         width + 2 * padding,
         height + 2 * padding
       ].join(' ')
     },
     transform () {
-      const {width, height, position} = this
-      const dx = width / 2 - position.x
-      const dy = height / 2 - position.y
-      return `translate(${dx} ${dy})`
+      return null
+      // const {width, height, position} = this
+      // const dx = width / 2 - position.x
+      // const dy = height / 2 - position.y
+      // return `translate(${dx} ${dy})`
     },
     a () {
       return this.angle * Math.PI / 180

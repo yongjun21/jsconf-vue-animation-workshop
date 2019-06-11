@@ -7,7 +7,7 @@
 <script>
 import TweenLite, {Linear} from 'gsap/TweenLite'
 
-const SPEED = 1500
+const SPEED = 1000
 
 export default {
   props: ['d'],

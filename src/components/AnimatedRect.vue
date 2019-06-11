@@ -14,8 +14,7 @@ export default {
         y: this.y,
         width: this.width,
         height: this.height
-      },
-      pending: null
+      }
     }
   },
   methods: {

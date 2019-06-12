@@ -16,10 +16,10 @@ npm run serve
 2. ### Theory: Tween & interpolation
 3. ### Composing animation from animated elements
 4. ### Enter/Exit
-5. ### Animate on visible
+5. ### Enter animation when component scroll into view
 6. ### Animated line
-7. ### Theory: SVG path
-8. ### Using computed: Animating object along a path
-9. ### Animating viewport
+7. ### Animating object along a path
+8. ### Animating viewport
+9. ### Using transform
 
 

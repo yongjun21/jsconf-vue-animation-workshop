@@ -3,8 +3,10 @@
     <svg :viewBox="viewBox" preserveAspectRatio="xMidYMid meet">
       <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
       <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
-      <path v-bind="pathGeom" ref="path" v-show="!showGuide"></path>
+      <!-- FOCUS HERE -->
+      <path v-bind="pathGeom" ref="path"></path>
       <circle :cx="position.x" :cy="position.y" r="20" v-if="false"></circle>
+      <!-- FOCUS HERE -->
     </svg>
 
     <label>Velocity <input type="range" v-model="velocity" min="60" max="120" step="5"> {{velocity}}m/s</label>
@@ -52,6 +54,9 @@ export default {
         height + 2 * padding
       ].join(' ')
     },
+    /**
+     * IGNORE this part, just some math
+     */
     a () {
       return this.angle * Math.PI / 180
     },
@@ -88,7 +93,7 @@ export default {
         d: p.toString()
       }
     }
-    /* End */
+    /* end */
   },
   methods: {
     launch () {

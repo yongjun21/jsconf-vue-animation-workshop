@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     animate () {
+      // https://greensock.com/docs/TweenLite
       return TweenLite.to(this.animated, 0.66667, this.$props)
     },
     setAnimated (props) {
@@ -26,7 +27,7 @@ export default {
     }
   },
   created () {
-    // this.$watch(vm => [vm.x, vm.y, vm.width, vm.height], () => this.animate())
+    // this.$watch(vm => [vm.x, vm.y, vm.width, vm.height], this.animate)
   },
   mounted () {
     this.$el.vm = this

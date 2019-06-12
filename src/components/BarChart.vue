@@ -1,6 +1,6 @@
 <template>
   <svg class="bar-chart" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" v-observe-visibility="onAppear">
-    <transition-group tag="g" class="plot" appear @enter="onEnter">
+    <transition-group tag="g" @enter="onEnter">
       <animated-rect v-for="(v, i) in data" :key="i"
         ref="bars"
         class="bar"
@@ -87,7 +87,8 @@ export default {
     },
     animate () {
       this.$nextTick(() => {
-        const tweens = this.$refs.bars.map($bar => $bar.animate())
+        const tweens = this.$refs.bars.map(bar => bar.animate())
+        // https://greensock.com/docs/TimelineLite
         return new TimelineLite({
           tweens,
           stagger: 0.5
@@ -100,8 +101,8 @@ export default {
     },
     onAppear (isVisible) {
       if (!this.visible && isVisible) {
-        this.$refs.bars.forEach(vm => {
-          vm.setAnimated(this.enterGeom)
+        this.$refs.bars.forEach(bar => {
+          bar.setAnimated(this.enterGeom)
         })
         this.animate()
       }
@@ -109,10 +110,7 @@ export default {
     }
   },
   watch: {
-    data: {
-      handler: 'animate',
-      immediate: true
-    }
+    data: 'animate'
   }
 }
 </script>

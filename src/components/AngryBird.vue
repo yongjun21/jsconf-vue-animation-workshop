@@ -1,11 +1,13 @@
 <template>
   <div class="angry-bird">
     <svg :viewBox="viewBox" preserveAspectRatio="xMidYMid meet">
-      <g :transform="transform">
+      <g :transform="null && transform">
         <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
         <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
+        <!-- FOCUS HERE -->
         <animated-path v-bind="pathGeom" @animate="updatePosition" ref="path"></animated-path>
         <circle :cx="position.x" :cy="position.y" r="20"></circle>
+        <!-- FOCUS HERE -->
       </g>
     </svg>
 
@@ -48,6 +50,7 @@ export default {
     }
   },
   computed: {
+    // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
     viewBox () {
       const {width, height, position} = this
       const padding = 0.05 * width
@@ -60,13 +63,16 @@ export default {
         height + 2 * padding
       ].join(' ')
     },
+    // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
     transform () {
-      return null
-      // const {width, height, position} = this
-      // const dx = width / 2 - position.x
-      // const dy = height / 2 - position.y
-      // return `translate(${dx} ${dy})`
+      const {width, height, position} = this
+      const dx = width / 2 - position.x
+      const dy = height / 2 - position.y
+      return `translate(${dx} ${dy})`
     },
+    /**
+     * IGNORE this part, just some math
+     */
     a () {
       return this.angle * Math.PI / 180
     },
@@ -103,6 +109,7 @@ export default {
         d: p.toString()
       }
     }
+    /* End */
   },
   methods: {
     launch () {

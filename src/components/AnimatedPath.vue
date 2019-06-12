@@ -1,7 +1,5 @@
 <template>
-  <g>
-    <path :d="d" :stroke-dasharray="length" :stroke-dashoffset="offset"></path>
-  </g>
+  <path :d="d" :stroke-dasharray="length" :stroke-dashoffset="offset"></path>
 </template>
 
 <script>
@@ -13,18 +11,20 @@ export default {
   props: ['d'],
   data () {
     return {
-      length: 0,
-      offset: 0
-    }
-  },
-  computed: {
-    point () {
-      return getPointAtLength(this.d, this.length - this.offset)
+      length: null,
+      offset: null
     }
   },
   methods: {
+    updateLength () {
+      // https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement/getTotalLength
+      const totalLength = this.$el.getTotalLength()
+      this.length = totalLength
+      this.offset = totalLength
+    },
     animate () {
       const totalLength = this.length
+      // https://greensock.com/docs/TweenLite/static.fromTo()
       return TweenLite.fromTo(this.$data, totalLength / SPEED, {
         offset: totalLength
       }, {
@@ -33,28 +33,16 @@ export default {
       })
     }
   },
+  mounted () {
+    this.updateLength()
+    this.$watch('d', this.updateLength)
+  },
   watch: {
-    d: {
-      handler () {
-        const totalLength = getTotalLength(this.d)
-        this.length = totalLength
-        this.offset = totalLength
-      },
-      immediate: true
-    },
-    point (pt) {
-      this.$emit('animate', pt)
+    offset () {
+      // https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement/getPointAtLength
+      const point = this.$el.getPointAtLength(this.length - this.offset)
+      this.$emit('animate', point)
     }
   }
-}
-
-const $path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-function getTotalLength (d) {
-  $path.setAttribute('d', d)
-  return $path.getTotalLength()
-}
-function getPointAtLength (d, length) {
-  $path.setAttribute('d', d)
-  return $path.getPointAtLength(length)
 }
 </script>

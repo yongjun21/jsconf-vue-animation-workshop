@@ -5,7 +5,7 @@
         <gridlines :xRange="[-width, 2 * width]" :yRange="[-height, 2 * height]" :interval="100"></gridlines>
         <line class="guide" v-bind="lineGeom" v-show="showGuide"></line>
         <!-- FOCUS HERE -->
-        <animated-path v-bind="pathGeom" @animate="updatePosition" ref="path"></animated-path>
+        <animated-path v-bind="pathGeom" ref="path" @animate="position = $event"></animated-path>
         <circle :cx="position.x" :cy="position.y" r="20"></circle>
         <!-- FOCUS HERE -->
       </g>
@@ -115,9 +115,6 @@ export default {
     launch () {
       this.showGuide = false
       this.$refs.path.animate()
-    },
-    updatePosition (pos) {
-      this.position = pos
     }
   },
   watch: {

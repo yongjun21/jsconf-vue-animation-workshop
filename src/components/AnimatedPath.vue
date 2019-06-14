@@ -23,13 +23,15 @@ export default {
       this.offset = totalLength
     },
     animate () {
-      const totalLength = this.length
-      // https://greensock.com/docs/TweenLite/static.fromTo()
-      return TweenLite.fromTo(this.$data, totalLength / SPEED, {
-        offset: totalLength
-      }, {
-        offset: 0,
-        ease: Linear.easeNone
+      this.$nextTick(() => {
+        const totalLength = this.length
+        // https://greensock.com/docs/TweenLite/static.fromTo()
+        TweenLite.fromTo(this.$data, totalLength / SPEED, {
+          offset: totalLength
+        }, {
+          offset: 0,
+          ease: Linear.easeNone
+        })
       })
     }
   },
